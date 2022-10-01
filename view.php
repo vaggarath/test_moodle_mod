@@ -25,6 +25,10 @@
 require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 
+global $PAGE;
+// $PAGE->requires->js('/mod/vagodel/amd/js/model-viewer.min.js', true);
+$PAGE->requires->js_call_amd('mod/vagodel/amd/js/model-viewer.min.js');
+echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>'; //bon à priori ultra mauvaise pratique mais y'a un peu marre^^
 // Course module id.
 $id = optional_param('id', 0, PARAM_INT);
 
@@ -97,8 +101,8 @@ if ($files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', '0', 's
             $texture = $download_url;
         }
 
-        var_dump($ext);
-        echo "<img src='".$download_url."'>" ; 
+        // var_dump($ext);
+        // echo "<img src='".$download_url."'>" ; 
     }
 
     echo getmodel($model, $texture);
