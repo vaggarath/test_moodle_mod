@@ -47,7 +47,7 @@ class mod_vagodel_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field.
-        $mform->addElement('text', 'name', get_string('modeltitle'), array('size' => '64'));
+        $mform->addElement('text', 'name', get_string('modeltitle', 'mod_vagodel'), array('size' => '64'));
 
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -62,11 +62,12 @@ class mod_vagodel_mod_form extends moodleform_mod {
         //add model and texture (optionnal)
         $filemanager_options = array();
         $filemanager_options['accepted_types'] = '*';
-        $filemanager_options['maxbytes'] = 0;
+        $filemanager_options['maxbytes'] = 5242880; //5mo 
         $filemanager_options['maxfiles'] = 2;
         $filemanager_options['mainfile'] = true;
 
         $mform->addElement('filemanager', 'files', get_string('selectfiles'), null, $filemanager_options);
+        $mform->addHelpButton('files', 'files', 'mod_vagodel');
 
         // Adding the standard "intro" and "introformat" fields.
         if ($CFG->branch >= 29) {
@@ -77,8 +78,8 @@ class mod_vagodel_mod_form extends moodleform_mod {
 
         // Adding the rest of mod_vagodel settings, spreading all them into this fieldset
         // ... or adding more fieldsets ('header' elements) if needed for better logic.
-        $mform->addElement('static', 'label1', 'vagodelsettings', get_string('vagodelsettings', 'mod_vagodel'));
-        $mform->addElement('header', 'vagodelfieldset', get_string('vagodelfieldset', 'mod_vagodel'));
+        // $mform->addElement('static', 'label1', get_string('vagodelsettings', 'mod_vagodel'));
+        $mform->addElement('header', get_string('vagodelfieldset', 'mod_vagodel'));
 
         // Add standard elements.
         $this->standard_coursemodule_elements();

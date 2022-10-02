@@ -1,0 +1,12 @@
+model-viewer{
+    width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.loginpanel
+{
+background: url([[pix:theme|moodle-logo]]) no-repeat 70px 10px;
+padding-top: 70px;
+}

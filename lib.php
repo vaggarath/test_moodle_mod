@@ -225,8 +225,8 @@ function vagodel_pluginfile($course, $cm, $context, $filearea, $args, $forcedown
 
 function getmodel($model, $texture){
     if($model){
-        $environment = $texture ? $texture : "";
-        return '<model-viewer alt="" src="'.$model.'" ar environment-image="http://localhost/env.hdr" poster="" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>';
+        $poster = $texture ? $texture : "";
+        return '<model-viewer alt="" src="'.$model.'" ar environment-image="http://localhost/env.hdr" poster="'.$poster.'" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>';
     }else{
         return "Aucun modele disponible";
     }

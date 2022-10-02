@@ -20,11 +20,11 @@ function vagodel_set_mainfile($data) {
     }
     $files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', 0, 'sortorder', false);
 
-    if (count($files) == 1) {
-        // only one file attached, set it as main file automatically
-        $file = reset($files);
-        file_set_sortorder($context->id, 'mod_vagodel', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
-    }
+    // if (count($files) == 1) {
+    //     // only one file attached, set it as main file automatically
+    //     $file = reset($files);
+    //     file_set_sortorder($context->id, 'mod_vagodel', 'content', 0, $file->get_filepath(), $file->get_filename(), 1);
+    // }
 }
 
 class vagodel_content_file_info extends file_info_stored {

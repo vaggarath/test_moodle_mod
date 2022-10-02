@@ -27,8 +27,11 @@ require_once(__DIR__.'/lib.php');
 
 global $PAGE;
 // $PAGE->requires->js('/mod/vagodel/amd/js/model-viewer.min.js', true);
-$PAGE->requires->js_call_amd('mod/vagodel/amd/js/model-viewer.min.js');
-echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>'; //bon à priori ultra mauvaise pratique mais y'a un peu marre^^
+// $PAGE->requires->js_call_amd('mod/vagodel/amd/js/model-viewer.min.js');
+// echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>'; //bon à priori ultra mauvaise pratique mais y'a un peu marre^^
+echo '<script type="module" src="amd/js/model-viewer.min.js"></script>'; //mouais...
+echo '<link href="styles.css" rel="stylesheet">';
+
 // Course module id.
 $id = optional_param('id', 0, PARAM_INT);
 
