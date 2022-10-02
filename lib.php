@@ -79,10 +79,20 @@ function vagodel_add_instance($moduleinstance, $mform) {
  * @return bool True if successful, false otherwise.
  */
 function vagodel_update_instance($moduleinstance, $mform = null) {
-    global $DB;
+    global $DB, $USER, $CFG;
+    require_once("$CFG->libdir/resourcelib.php");
+    require_once("$CFG->dirroot/mod/vagodel/locallib.php");
 
     $moduleinstance->timemodified = time();
+    $moduleinstance->teacher = $USER->lastname." ".$USER->firstname; //on change le prof si c'en est un autre (utile ?)
     $moduleinstance->id = $moduleinstance->instance;
+
+    if($moduleinstance->files){ //useless to trigger if no files
+       vagodel_replace_mainfile($moduleinstance); //do a function to remove last files! 
+    }
+    
+    $completiontimeexpected = !empty($moduleinstance->completionexpected) ? $moduleinstance->completionexpected : null;
+    \core_completion\api::update_completion_date_event($cmid, 'resource', $moduleinstance->id, $completiontimeexpected);
 
     return $DB->update_record('vagodel', $moduleinstance);
 }

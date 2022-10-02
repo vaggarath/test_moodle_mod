@@ -52,22 +52,10 @@ require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
 
-// $event = \mod_vagodel\event\course_module_viewed::create(array(
-//     'objectid' => $moduleinstance->id,
-//     'context' => $context
-// ));
-// $event->add_record_snapshot('course', $course);
-// $event->add_record_snapshot('vagodel', $moduleinstance);
-// $event->trigger();
-
 $PAGE->set_url('/mod/vagodel/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($moduleinstance->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-
-// $fs = get_file_storage();
-// $fs_files = $fs->get_area_files($context->id, 'mod_vagodel',
-// 'content');
 
 echo $OUTPUT->header();
 
@@ -89,6 +77,7 @@ $texture = null;
 
 if ($files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', '0', 'sortorder', false)) {
     // Look through each file being managed
+    //texture isn't texture anymore but poster. Too lazy to change functions name for now^^
     foreach ($files as $file) {
         $ext = strtolower(pathinfo($file->get_filename(), PATHINFO_EXTENSION));
 
