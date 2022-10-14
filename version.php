@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_vagodel';
 $plugin->release = '0.1.0';
-$plugin->version = 2022093002;
+$plugin->version = 2022093005;
 $plugin->requires = 2021051700;
 $plugin->maturity = MATURITY_ALPHA;

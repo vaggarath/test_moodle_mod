@@ -27,15 +27,21 @@ require_once(__DIR__.'/lib.php');
 
 global $PAGE;
 // $PAGE->requires->js('/mod/vagodel/amd/js/model-viewer.min.js', true);
-// $PAGE->requires->js_call_amd('mod/vagodel/amd/js/model-viewer.min.js');
-// echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>'; //bon à priori ultra mauvaise pratique mais y'a un peu marre^^
-echo '<script type="module" src="amd/js/model-viewer.min.js"></script>'; //mouais...
-echo '<link href="styles.css" rel="stylesheet">';
+// $config = ['paths' => ['ModelViewerElement' => 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js']];
+// $requirejs = 'require.config(' . json_encode($config) . ')';
+// $PAGE->requires->js_amd_inline($requirejs);
+
+$PAGE->requires->js_call_amd( 'mod_vagodel/test', 'test' );
+// $PAGE->requires->js('/mod/vagodel/amd/js/model-viewermin.js', true);
+// $PAGE->requires->js_call_amd( 'mod_vagodel/model-viewer.min.js');
+echo '<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>'; //bon à priori ultra mauvaise pratique mais y'a un peu marre^^
+// echo '<script type="module" src="amd/js/model-viewer.min.js"></script>'; //mouais...
+// echo '<link href="styles.css" rel="stylesheet">';
 
 // Course module id.
 $id = optional_param('id', 0, PARAM_INT);
 
-// Activity instance id.
+// Activity instance id
 $v = optional_param('v', 0, PARAM_INT);
 
 if ($id) {
@@ -51,6 +57,7 @@ if ($id) {
 require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
+require_capability('mod/vagodel:view', $context); //only if has capa (teacher + student + manager)
 
 $PAGE->set_url('/mod/vagodel/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($moduleinstance->name));
@@ -74,6 +81,7 @@ $fs = get_file_storage();
 
 $model = null;
 $texture = null;
+$hotspots = null;
 
 if ($files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', '0', 'sortorder', false)) {
     // Look through each file being managed
@@ -91,15 +99,17 @@ if ($files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', '0', 's
             $model = $download_url;
         }elseif($ext === 'jpg' || $ext === 'png' || $ext === 'gif'){
             $texture = $download_url;
+        }elseif($ext === 'json'){
+            $hotspots = $file;
         }
 
         // var_dump($ext);
-        // echo "<img src='".$download_url."'>" ; 
+        // echo "<img src='".$download_url."'>" ;
     }
 
-    echo getmodel($model, $texture);
+    echo getmodel($model, $texture, $hotspots);
 } else {
 	echo '<p>Aucun modèle disponible</p>';
-}  
+}
 
 echo $OUTPUT->footer();

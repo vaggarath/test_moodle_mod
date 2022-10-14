@@ -57,13 +57,14 @@ function vagodel_add_instance($moduleinstance, $mform) {
 
     $moduleinstance->timecreated = time();
     $moduleinstance->teacher = $USER->lastname." ".$USER->firstname;
+    $cmid = $moduleinstance->coursemodule;
 
     $id = $DB->insert_record('vagodel', $moduleinstance);
     
     vagodel_set_mainfile($moduleinstance);
 
     $completiontimeexpected = !empty($moduleinstance->completionexpected) ? $moduleinstance->completionexpected : null;
-    \core_completion\api::update_completion_date_event($cmid, 'resource', $moduleinstance->id, $completiontimeexpected);
+    \core_completion\api::update_completion_date_event($cmid, 'resource', null, $completiontimeexpected); //$moduleinstance->id
 
     return $id;
 }
@@ -86,6 +87,7 @@ function vagodel_update_instance($moduleinstance, $mform = null) {
     $moduleinstance->timemodified = time();
     $moduleinstance->teacher = $USER->lastname." ".$USER->firstname; //on change le prof si c'en est un autre (utile ?)
     $moduleinstance->id = $moduleinstance->instance;
+    $cmid = $moduleinstance->coursemodule;
 
     if($moduleinstance->files){ //useless to trigger if no files
        vagodel_replace_mainfile($moduleinstance); //do a function to remove last files! 
@@ -233,11 +235,31 @@ function vagodel_pluginfile($course, $cm, $context, $filearea, $args, $forcedown
 //     }
 // }
 
-function getmodel($model, $texture){
-    if($model){
-        $poster = $texture ? $texture : "";
+function getmodel($model, $texture, $hotspots){
+    
+    $poster = $texture ? $texture : "";
+    if($model && !$hotspots){//
         return '<model-viewer alt="" src="'.$model.'" ar environment-image="http://localhost/env.hdr" poster="'.$poster.'" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>';
-    }else{
+    }
+    elseif($model && $hotspots){
+        return '<model-viewer alt="" src="'.$model.'" ar environment-image="http://localhost/env.hdr" poster="'.$poster.'" shadow-intensity="1" camera-controls touch-action="pan-y" data-visibility-attribute="visible">'.getHotSpots($hotspots).'</model-viewer>';
+    }
+    else{
         return "Aucun modele disponible";
     }
+}
+
+function getHotSpots($hotspots){
+    global $CFG;
+    $json = $hotspots->get_content(); //works the same way as get_files_contents() but gfc won't work... go figure...
+    $json_data = json_decode($json, true);
+    // var_dump($json_data["hotspots"]);
+    $buttons = "";
+    foreach($json_data["hotspots"] as $hotspot){
+        // foreach($hotspot as $key => $value){
+        //     echo "$key : $value <br>";
+        // }
+        $buttons .= '<button class="Hotspot" slot="'.$hotspot['slot'].'" data-position="'.$hotspot['data-position'].'" data-normal="'.$hotspot['data-normal'].'"><div class="annotation">'.$hotspot['text'].'</div></button>';
+    }
+    return $buttons;
 }

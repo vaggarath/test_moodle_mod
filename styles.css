@@ -1,6 +1,6 @@
 model-viewer{
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    height: 90vh;
     margin-left: auto;
     margin-right: auto;
 }
@@ -10,3 +10,28 @@ div.loginpanel
 background: url([[pix:theme|moodle-logo]]) no-repeat 70px 10px;
 padding-top: 70px;
 }
+
+
+.hotspot{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #93d1cb;;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .annotation{
+    background-color: #93d1cb;;
+    position: absolute;
+    transform: translate(10px, 10px);
+    border-radius: 10px;
+    padding: 10px;
+    width: 10rem;
+  }
+  /* This keeps child nodes hidden while the element loads */
+  :not(:defined) > * {
+    display: none;
+  }

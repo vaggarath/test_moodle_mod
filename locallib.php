@@ -30,7 +30,7 @@ function vagodel_replace_mainfile($data) { //replace
         //first look for files, if they exist : delete them
 
         if ($files = $fs->get_area_files($context->id, 'mod_vagodel', 'content', '0', 'sortorder', false)) {
-            foreach ($files as $file) {
+            foreach ($files as $file) { //TODO : Vérifier pour chaque fichier. Là on supprime tout au lieu de check si les trois fichiers sont remplacés ou non
                 //let's delete... So... How ?:D
                 $file->delete(); //si c'est aussi con j'me tire une balle
                 //fonctionne mais : Ne supprime pas draft, (logique) mais pas non plus les instances/component user

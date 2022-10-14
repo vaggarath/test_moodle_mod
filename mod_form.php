@@ -62,8 +62,8 @@ class mod_vagodel_mod_form extends moodleform_mod {
         //add model and texture (optionnal)
         $filemanager_options = array();
         $filemanager_options['accepted_types'] = '*';
-        $filemanager_options['maxbytes'] = 5242880; //5mo 
-        $filemanager_options['maxfiles'] = 2;
+        $filemanager_options['maxbytes'] = 5242880; //5mo https://www.convertworld.com/fr/mesures-informatiques/octet-byte.html
+        $filemanager_options['maxfiles'] = 3;
         $filemanager_options['mainfile'] = true;
 
         $mform->addElement('filemanager', 'files', get_string('selectfiles'), null, $filemanager_options);

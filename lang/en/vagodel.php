@@ -25,13 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+defined('MOODLE_INTERNAL') || die();
+
 $string['pluginname'] = 'Vagodel';
 $string['vagodelsettings'] = 'Paramètrage';
 $string['vagodelfieldset'] = 'Paramètrage';
 $string['modulename'] = 'Vagodel';
+$string['vagodelname'] = 'Vagodel';
 $string['vagodelname_help'] = 'Indiquez un titre qui décrira votre modèle';
 $string['files_help'] = 'Votre modèle doit obligatoirement être au format GLB ou GLTF et ne pas dépasser 5Mo';
 $string['modulenameplural'] = 'Models';
 $string['modeltitle'] = 'Titre du modèle';
 $string['pluginadministration'] = 'Administration';
 $string['selectfiles'] = 'Séléctionnez votre modèle et votre texture (optionnel)';
+$string['files'] = 'Fichiers';
